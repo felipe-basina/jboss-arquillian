@@ -43,25 +43,25 @@
 		</dependency>
 	</dependencies>
 
-<!-- 	<profiles> -->
-<!-- 		<profile> -->
-<!-- 			<id>jboss</id> -->
-<!-- 			<dependencies> -->
-<!-- 				<dependency> -->
-<!-- 					<groupId>org.wildfly</groupId> -->
-<!-- 					<artifactId>wildfly-arquillian-container-managed</artifactId> -->
-<!-- 					<version>8.1.0.Final</version> -->
-<!-- 					<scope>test</scope> -->
-<!-- 					<exclusions> -->
-<!-- 						<exclusion> -->
-<!-- 							<groupId>sun.jdk</groupId> -->
-<!-- 							<artifactId>jconsole</artifactId> -->
-<!-- 						</exclusion> -->
-<!-- 					</exclusions> -->
-<!-- 				</dependency> -->
-<!-- 			</dependencies> -->
-<!-- 		</profile> -->
-<!-- 	</profiles> -->
+	<profiles>
+		<profile>
+			<id>jboss</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-managed</artifactId>
+					<version>8.1.0.Final</version>
+					<scope>test</scope>
+					<exclusions>
+						<exclusion>
+							<groupId>sun.jdk</groupId>
+							<artifactId>jconsole</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 	<build>
 		<finalName>arquillian-poc</finalName>
