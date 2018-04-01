@@ -12,11 +12,13 @@ OPERAÇÕES
 ===========================================
 
 **GET**
+
 http://localhost:8080/arquillian-poc/rest/pessoa
 
 http://localhost:8080/arquillian-poc/rest/pessoa/1
 
 **POST**
+
 http://localhost:8080/arquillian-poc/rest/pessoa
 {
  "nome": "Nome Sobrenome",
@@ -24,6 +26,7 @@ http://localhost:8080/arquillian-poc/rest/pessoa
 }
 
 **PUT**
+
 http://localhost:8080/arquillian-poc/rest/pessoa/1
 {
  "nome": "Nome Meio Sobrenome",
@@ -31,4 +34,5 @@ http://localhost:8080/arquillian-poc/rest/pessoa/1
 }
 
 **DELETE**
+
 http://localhost:8080/arquillian-poc/rest/pessoa/1
