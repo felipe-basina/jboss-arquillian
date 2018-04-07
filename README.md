@@ -36,3 +36,11 @@ http://localhost:8080/arquillian-poc/rest/pessoa/1
 **DELETE**
 
 http://localhost:8080/arquillian-poc/rest/pessoa/1
+
+EXEMPLO PUSH NOTIFICATION
+===========================================
+Referência: 
+https://yakovfain.com/2014/12/29/pushing-data-to-multiple-websocket-clients-from-a-java-server/
+
+URL para teste:
+http://localhost:8080/arquillian-poc/clock.html
