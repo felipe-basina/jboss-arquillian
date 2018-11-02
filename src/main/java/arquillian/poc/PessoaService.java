@@ -13,7 +13,7 @@ import javax.transaction.UserTransaction;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class PessoaService {
 
-	@PersistenceContext
+	@PersistenceContext(unitName = "teste")
 	private EntityManager em;
 
 	@Resource
