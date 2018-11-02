@@ -32,6 +32,10 @@ public class PessoaDao {
 		this.em.remove(this.em.merge(pessoa));
 	}
 	
+	public void removerTodasPessoas() {
+		this.em.createNativeQuery("DELETE FROM pessoa").executeUpdate();
+	}
+	
 	public Pessoa recuperarPorNome(final String nome) {
 		try {
 			return this.em.createNamedQuery(Pessoa.RECUPERAR_POR_NOME, Pessoa.class)
