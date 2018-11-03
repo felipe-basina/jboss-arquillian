@@ -29,6 +29,13 @@ public class PessoaService {
 			this.userTransaction.begin();
 			
 			for (int index = 0; index <= 1000; index++) {
+				if (index % 50 == 0) {
+					this.em.flush();
+					this.userTransaction.commit();
+					this.userTransaction.begin();
+					this.em.clear();
+					System.out.println("PessoaService.inserirPessoasEmLote() -> Commit realizado com sucesso!");
+				}
 				this.em.createNativeQuery(INSERIR_PESSOA_SQL)
 					.setParameter(1, index)
 					.setParameter(2, "Nome_" + index)
