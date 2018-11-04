@@ -22,9 +22,6 @@ public class PessoaAPI {
 
 	@EJB
 	private PessoaDao pessoaDao;
-	
-	@EJB
-	private PessoaService pessoaService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -36,7 +33,7 @@ public class PessoaAPI {
 	@Path("/batch/insert")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response batchInsert() {
-		this.pessoaService.inserirPessoasEmLote();
+		this.pessoaDao.inserirPessoasEmLote();
 		return Response.status(Status.OK)
 				.entity(Json.createObjectBuilder().add("message", "Registros inseridos com sucesso").build())
 			.build();
@@ -46,7 +43,7 @@ public class PessoaAPI {
 	@Path("/batch/update")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response batchUpdate() {
-		this.pessoaService.atualizarPessoasEmLote();
+		this.pessoaDao.atualizarPessoasEmLote();
 		return Response.status(Status.OK)
 				.entity(Json.createObjectBuilder().add("message", "Registros atualizados com sucesso").build())
 			.build();
