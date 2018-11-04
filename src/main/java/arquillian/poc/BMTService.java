@@ -2,7 +2,6 @@ package arquillian.poc;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateful;
-import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
