@@ -32,6 +32,7 @@ public class CompoundPKDao implements Serializable {
 	
 	private static final String UPDATE_SQL_STATEMENT = "UPDATE COMPOUND_PK SET DESCRIPTION = ?, CREATION_DATE = ? WHERE FIRST_ID = ? AND SECOND_ID = ? AND THIRD_ID = ?";
 	private static final String GET_ALL_SQL_STATEMENT = "SELECT * FROM COMPOUND_PK ORDER BY THIRD_ID ASC";
+	private static final String DELTE_ALL_SQL_STATEMENT = "DELETE FROM COMPOUND_PK";
 	
 	public void createData() {
 		for (int index = 0; index < TOTAL_OF_REGISTERS; index++) {
@@ -43,6 +44,7 @@ public class CompoundPKDao implements Serializable {
 	
 	public void updateData() {
 		final Date updateDate = new Date();
+		long init = System.currentTimeMillis();
 		for (int index = 0; index < TOTAL_OF_REGISTERS; index++) {
 			this.em.createNativeQuery(UPDATE_SQL_STATEMENT)
 				.setParameter(1, "New description for index :: " + index)
@@ -52,11 +54,13 @@ public class CompoundPKDao implements Serializable {
 				.setParameter(5, index)
 			.executeUpdate();
 		}
+		System.out.println("CompoundPKDao.batchUpdateData() -> tempo total (ms): " + (System.currentTimeMillis() - init));
 	}
 	
 	public void batchUpdateData() {
 		final Date updateDate = new Date();
 		this.bmtService.initiateTransaction();
+		long init = System.currentTimeMillis();
 		for (int index = 0; index < TOTAL_OF_REGISTERS; index++) {
 			try {
 				if (index % 50 == 0) {
@@ -80,12 +84,17 @@ public class CompoundPKDao implements Serializable {
 			}
 		}
 		this.bmtService.commitTransaction();
+		System.out.println("CompoundPKDao.batchUpdateData() -> tempo total (ms): " + (System.currentTimeMillis() - init));
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<ClasseCompoundPK> getAllData() {
 		return this.em.createNativeQuery(GET_ALL_SQL_STATEMENT, ClasseCompoundPK.class)
 				.getResultList();
+	}
+	
+	public void deleteAllData() {
+		this.em.createNativeQuery(DELTE_ALL_SQL_STATEMENT).executeUpdate();
 	}
 
 }

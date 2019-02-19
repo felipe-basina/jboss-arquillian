@@ -1,14 +1,14 @@
 # jboss-arquillian
-exemplos utilizando jboss + testes de integração com arquillian
+exemplos utilizando jboss + testes de integraï¿½ï¿½o com arquillian
 
-# referência
+# referï¿½ncia
 https://www.devmedia.com.br/testes-de-integracao-utilizando-cdi-jpa-e-ejb-e-arquillian/33340
 
 # procedimento
- 1. Editar o arquivo **arquillian.xml** e adicionar o diretório local do wildfly entre as tags **property**
+ 1. Editar o arquivo **arquillian.xml** e adicionar o diretï¿½rio local do wildfly entre as tags **property**
  2. Executar a classe **PessoaDaoTeste.java** com o JUnit
  
-OPERAÇÕES
+OPERAï¿½ï¿½ES
 ===========================================
 
 **GET**
@@ -39,8 +39,25 @@ http://localhost:8080/arquillian-poc/rest/pessoa/1
 
 EXEMPLO PUSH NOTIFICATION
 ===========================================
-Referência: 
+Referï¿½ncia: 
 https://yakovfain.com/2014/12/29/pushing-data-to-multiple-websocket-clients-from-a-java-server/
 
 URL para teste:
 http://localhost:8080/arquillian-poc/clock.html
+
+OPERAï¿½ï¿½ES COMPOUND PK
+===========================================
+**GET**
+http://localhost:8080/arquillian-poc/rest/compound/
+
+**CREATE**
+http://localhost:8080/arquillian-poc/rest/compound/create
+
+**UPDATE**
+http://localhost:8080/arquillian-poc/rest/compound/update
+
+**BATCH UPDATE**
+http://localhost:8080/arquillian-poc/rest/compound/batch/update
+
+**DELETE**
+http://localhost:8080/arquillian-poc/rest/compound/delete

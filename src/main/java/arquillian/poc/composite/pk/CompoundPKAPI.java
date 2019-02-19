@@ -63,4 +63,17 @@ public class CompoundPKAPI {
 		}
 	}
 	
+	@GET
+	@Path(value = "/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response delete() {
+		try {
+			this.compoundPKDao.deleteAllData();
+			return Response.status(Status.OK).build();
+		} catch (Exception e) {
+			JsonObject json = Json.createObjectBuilder().add("error", e.getMessage()).build();
+			return Response.status(Status.BAD_REQUEST).entity(json).build();
+		}
+	}
+	
 }
