@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import arquillian.poc.BMTService;
 
 @Stateless
 public class CompoundPKDao implements Serializable {
@@ -18,6 +21,9 @@ public class CompoundPKDao implements Serializable {
 	
 	@PersistenceContext(unitName = "teste")
 	private EntityManager em;
+	
+	@EJB
+	private BMTService bmtService;
 	
 	private static final String FIRST_ID_PREFIX = "firstID-";
 	private static final String SECOND_ID_PREFIX = "secondID-";
@@ -46,6 +52,34 @@ public class CompoundPKDao implements Serializable {
 				.setParameter(5, index)
 			.executeUpdate();
 		}
+	}
+	
+	public void batchUpdateData() {
+		final Date updateDate = new Date();
+		this.bmtService.initiateTransaction();
+		for (int index = 0; index < TOTAL_OF_REGISTERS; index++) {
+			try {
+				if (index % 50 == 0) {
+					System.out.println("CompoundPKDao.batchUpdateData() -> index: " + index + ", persistindo registros!");
+					this.bmtService.commitTransaction();
+					this.bmtService.initiateTransaction();
+				}
+				this.bmtService.getEntityManagerBMT()
+					.createNativeQuery(UPDATE_SQL_STATEMENT)
+					.setParameter(1, "New description for index :: " + index)
+					.setParameter(2, updateDate)
+					.setParameter(3, FIRST_ID_PREFIX + index)
+					.setParameter(4, SECOND_ID_PREFIX + index)
+					.setParameter(5, index)
+				.executeUpdate();
+			} catch (Exception e) {
+				System.out.println("CompoundPKDao.batchUpdateData() -> erro: " + e.getMessage());
+				e.printStackTrace();
+				this.bmtService.rollbackTransaction();
+				this.bmtService.initiateTransaction();
+			}
+		}
+		this.bmtService.commitTransaction();
 	}
 	
 	@SuppressWarnings("unchecked")

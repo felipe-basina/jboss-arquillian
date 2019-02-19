@@ -50,4 +50,17 @@ public class CompoundPKAPI {
 		}
 	}
 	
+	@GET
+	@Path(value = "/batch/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response batchUpdate() {
+		try {
+			this.compoundPKDao.batchUpdateData();
+			return Response.status(Status.NO_CONTENT).build();
+		} catch (Exception e) {
+			JsonObject json = Json.createObjectBuilder().add("error", e.getMessage()).build();
+			return Response.status(Status.BAD_REQUEST).entity(json).build();
+		}
+	}
+	
 }
