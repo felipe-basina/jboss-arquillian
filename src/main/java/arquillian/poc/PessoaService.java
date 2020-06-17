@@ -1,6 +1,7 @@
 package arquillian.poc;
 
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -18,6 +19,9 @@ public class PessoaService {
 
 	@Resource
 	private UserTransaction userTransaction;
+	
+	@EJB
+	private LogMessageService logMessageService;
 	
 	private static final String INSERIR_PESSOA_SQL = "INSERT INTO pessoa (id, nome, idade) VALUES (?, ?, ?)";
 	
@@ -86,4 +90,32 @@ public class PessoaService {
 		}
 	}	
 
+	public void inserirPessoa(final boolean gerarErro) {
+		final int index = 1001;
+		try {
+			this.userTransaction.begin();
+			if (gerarErro) {
+				throw new Exception("Gerando erro...");
+			}
+			this.em.createNativeQuery(INSERIR_PESSOA_SQL)
+				.setParameter(1, index)
+				.setParameter(2, "Nome_" + index)
+				.setParameter(3, index)
+			.executeUpdate();
+			this.em.flush();
+			this.userTransaction.commit();
+			this.logMessageService.salvarLog("Registro " + index + " salvo com sucesso");
+		} catch (Exception ex) {
+			System.out.println("Exceção lançada: " + ex.getMessage());
+			try {
+				this.userTransaction.rollback();
+				System.out.println("Rollback realizado com sucesso!");
+			} catch (IllegalStateException | SecurityException | SystemException e) {
+				System.out.println("Erro ao realizar rollback: " + e.getMessage());
+				e.printStackTrace();
+			}
+			this.logMessageService.salvarLog("Erro ao salvar registro " + index + " (index)");
+		}
+	}
+	
 }

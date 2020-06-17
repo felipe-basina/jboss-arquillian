@@ -7,6 +7,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import arquillian.poc.composite.pk.CompoundPKAPI;
+import arquillian.poc.qualifier.ExampleAPI;
 
 @ApplicationPath("/rest")
 public class InitApp extends Application {
@@ -16,6 +17,8 @@ public class InitApp extends Application {
         Set<Class<?>> s = new HashSet<Class<?>>();
         s.add(PessoaAPI.class);
         s.add(CompoundPKAPI.class);
+        s.add(LogMessageAPI.class);
+        s.add(ExampleAPI.class);
         return s;
     }
 

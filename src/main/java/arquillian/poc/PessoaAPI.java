@@ -22,6 +22,9 @@ public class PessoaAPI {
 
 	@EJB
 	private PessoaDao pessoaDao;
+	
+	@EJB
+	private PessoaService pessoaService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -56,6 +59,16 @@ public class PessoaAPI {
 		this.pessoaDao.removerTodasPessoas();
 		return Response.status(Status.OK)
 				.entity(Json.createObjectBuilder().add("message", "Registros removidos com sucesso").build())
+			.build();
+	}
+
+	@GET
+	@Path("/get/log/{gerarErro}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getLog(@PathParam("gerarErro") boolean gerarErro) {
+		this.pessoaService.inserirPessoa(gerarErro);
+		return Response.status(Status.OK)
+				.entity(Json.createObjectBuilder().add("message", "Processado com sucesso").build())
 			.build();
 	}
 
